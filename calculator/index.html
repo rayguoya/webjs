@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>计算器</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	</head>
+	<body>
+		<div class="box">
+		    <div class="screen"><input id="screen" type="text" readonly="readonly" value="0" /></div>
+		    <ul class="button clearfix">
+		        <li><input type="button" value="1" onclick="inputKey(this.value);" /></li>
+		        <li><input type="button" value="2" onclick="inputKey(this.value);" /></li>
+		        <li><input type="button" value="3" onclick="inputKey(this.value);" /></li>
+		        <li><input type="button" value="4" onclick="inputKey(this.value);" /></li>
+		        <li><input class="ft18" type="button" value="清空" onclick="clearFun();" /></li>
+		        <li><input type="button" value="5" onclick="inputKey(this.value);" /></li>
+		        <li><input type="button" value="6" onclick="inputKey(this.value);" /></li>
+		        <li><input type="button" value="7" onclick="inputKey(this.value);" /></li>
+		        <li><input type="button" value="8" onclick="inputKey(this.value);" /></li>
+		        <li><input class="ft18" type="button" value="根号" onclick="sqr();" /></li>
+		        <li><input type="button" value="9" onclick="inputKey(this.value);" /></li>
+		        <li><input type="button" value="0" onclick="inputKey(this.value);" /></li>
+		        <li><input type="button" value="." onclick="inputKey(this.value);" /></li>
+		        <li><input type="button" value="del" onclick="del();" /></li>
+		        <li><input type="button" value="%" onclick="operatingFun('%')"/></li>
+		        <li><input type="button" value="+" onclick="operatingFun('+')" /></li>
+		        <li><input type="button" value="-" onclick="operatingFun('-')"/></li>
+		        <li><input type="button" value="*" onclick="operatingFun('*')"/></li>
+		        <li><input type="button" value="/" onclick="operatingFun('/')"/></li>
+		        <li><input type="button" value="=" onclick="result()" /></li>
+		    </ul>
+		</div>
+		<script src="js/script.js">
+			
+		</script>
+	</body>
+</html>
