@@ -1,0 +1,269 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+body,ul,li,span,a{ margin:0; padding:0;}
+a{ text-decoration:none;}
+li{ list-style:none;}
+.clearfix{ *zoom:1;}
+.clearfix:after{ content:"."; display:block; visibility:hidden; height:0; font-size:0; clear:both;}
+body{ background:#cc7a52;}
+.box{ width:1020px; height:auto; margin:0 auto;}
+.box-left{ float:left; position:relative; width:155px; height:auto;}
+.arrow{ position:absolute; font-size:26px; height:26px; line-height:26px; left:65px; top:38px;}
+.black,.white{ display:block; width:30px; height:30px; border-radius:50%; box-shadow:2px 2px 6px #000;}
+.black{ 
+    background: -webkit-radial-gradient(#fff 0%,#000 60%); /* Safari 5.1 - 6.0 */
+    background: -o-radial-gradient(#fff 0%,#000 60%); /* Opera 11.6 - 12.0 */
+    background: -moz-radial-gradient(#fff 0%,#000 60%); /* Firefox 3.6 - 15 */
+    background: radial-gradient(#fff 0%,#000 60%); /* 标准的语法 */
+}
+.white{
+    background: -webkit-radial-gradient(#000 -100%,#fff 60%); /* Safari 5.1 - 6.0 */
+    background: -o-radial-gradient(#000 -100%,#fff 60%); /* Opera 11.6 - 12.0 */
+    background: -moz-radial-gradient(#000 -100%,#fff 60%); /* Firefox 3.6 - 15 */
+    background: radial-gradient(#000 -100%,#fff 60%); /* 标准的语法 */
+}
+.box-person{ padding-top:8px;}
+.box-person li{ height:55px; padding:25px 0 0 115px;}
+.box-btn{ display:block; width:80px; text-align:center; line-height:30px; color:#fff; font-size:14px; height:30px; border-radius:8px; background:#000; margin:45px 0 0 75px;}
+.box-right{ float:right; position:relative; width:800px; height:auto; margin-top:32px; padding: 3px 0 0 3px;}
+.box-right li{ float: left; width: 37px; height: 37px; border: #000 3px double; margin:-3px 0 0 -3px;  font-size: 10px;}
+.box-right .black,.white{ position: absolute; }
+</style>
+</head>
+
+<body>
+<div class="box clearfix" id="box">
+	<div class="box-left">
+    	<span id="arrow" class="arrow">=》</span>
+    	<ul class="box-person">
+        	<li><span class="black"></span></li>
+            <li><span class="white"></span></li>
+        </ul>
+        <a class="box-btn" href="javascript:void(0)" onclick="window.location.reload();">重新开始</a>
+    </div>
+    <div class="box-right" id="QP">
+        <ul class="clearfix">
+            
+        </ul>
+       <!--  <span class="white" style=" left: -20px; top: -20px;"></span>
+       <span class="black" style=" left: 100px; top: 60px;"></span> -->
+    </div>
+</div>
+
+<script>
+//sconole.log(document.body.offsetParent,document.body.offsetLeft);//null 0
+//document.body.clientWidth;//clientWidth节点的可视宽度
+//document.body.clientHeight;//clientHeight节点的可视宽度
+//var cols=20;
+//chessWidth=40;
+//鼠标坐标;offsetLeft,offsetTop;
+/*var arr=[
+        [
+         {},{},{}...{}
+        ],
+        [
+         {},{},{}...{}
+        ]
+    ];*/
+
+var oChess={
+    contentNode:document.getElementById('QP'),
+    arrowNode:document.getElementById('arrow'),//箭头节点
+    ulNode:null,
+    arrChess:[],//记录所有格子的二维数组
+    gridWidth:40,//格子的宽度
+    chessWidth:30,//棋子的宽度
+    chessBool:true,//true表示落黑子，false表示落白子
+    win:function(x,y,color){//判断胜利;x,y表示坐标,color表示颜色
+        var _this=this;
+        var maxX=_this.arrChess[0].length-1;//水平x最大值
+        var maxY=_this.arrChess.length-1;//垂直y最大值
+
+        /**********水平判断胜利*******/
+        var aNum=0;
+        for(var aX=x-4,aY=y;aX<=x+4;aX++){
+            if(aX>=0 && aX<=maxX){
+                if(color==_this.arrChess[aY][aX].chessColor){
+                    aNum++;
+                    if(aNum>=5){
+                       return setTimeout(function(){
+                                alert(color+"赢了！");
+                              },0);
+                    }
+                }
+                else{
+                    aNum=0;
+                } 
+            };
+        };
+
+         /**********垂直判断胜利*******/
+         var bNum=0;
+         for(var bY=y-4,bX=x;bY<=y+4;bY++){
+            if(bY>=0 && bY<=maxY){
+                if(color==_this.arrChess[bY][bX].chessColor){
+                    bNum++;
+                    if(bNum>=5){
+                       return setTimeout(function(){
+                                alert(color+"赢了！");
+                              },0);
+                    }
+                }
+                else{
+                    bNum=0;
+                } 
+            };
+        };
+
+        /*********从左向右斜向下**********/
+         var cNum=0;
+         for(var cY=y-4,cX=x-4;cX<=x+4,cY<=y+4;cY++,cX++){
+            if((cX>=0 && cX<=maxX) && (cY>=0 && cY<=maxY)){
+                if(color==_this.arrChess[cY][cX].chessColor){
+                    cNum++;
+                    if(cNum>=5){
+                       return setTimeout(function(){
+                                alert(color+"赢了！");
+                              },0);
+                    }
+                }
+                else{
+                    cNum=0;
+                } 
+            }
+         };
+
+         /*********从左向右斜向上**********/
+         var dNum=0;
+         for(var dX=x-4,dY=y+4;dX<=x+4,dY>=y-4;dX++,dY--){
+            if((dX>=0 && dX<=maxX) && (dY>=0 && dY<=maxY)){
+                if(color==_this.arrChess[dY][dX].chessColor){
+                    dNum++;
+                    if(dNum>=5){
+                       return setTimeout(function(){
+                                alert(color+"赢了！");
+                              },0);
+                    }
+                }
+                else{
+                    dNum=0;
+                } 
+            }
+         };
+    },
+    createBoard:function(x,y,node){//创造棋盘;y表示棋盘有几行,x表示一行有几个格子,node表示碎片将要填入的对象
+        var _this=this;
+        var frag=document.createDocumentFragment();//碎片
+        for(var rows=0;rows<=y;rows++){
+            _this.arrChess[rows]=[];
+            for(var cols=0;cols<=x;cols++){
+                if(rows!=y && cols!=x){
+                    var liNode=document.createElement('li');//创造li节点
+                    frag.appendChild(liNode);
+                }
+                _this.arrChess[rows][cols]={
+                    bool:true,//true表示可以落子，false已落子
+                    chessColor:""//表示棋子的颜色
+                };//记录坐标点对应数据
+               
+            }
+        }
+        node.appendChild(frag);
+        node.parentNode.style.width=x*_this.gridWidth+"px";//更改棋盘整个的宽度
+    },
+    clientOffset:function(node){//node表示节点；函数返回node到可视窗口的距离
+        var x=0,y=0;
+        //offsetParent,offsetLeft,ofssetTop
+            
+        /*while(true){
+            x+=node.offsetLeft;
+            y+=node.offsetTop;
+            node=node.offsetParent;
+            if(node==null){
+                return {
+                    x:x,
+                    y:y
+                };
+            }
+            else if(node.nodeName.toLowerCase()=="body"){
+                return {
+                    x:x,
+                    y:y
+                };
+            }
+        }*/
+
+        do{
+            x+=node.offsetLeft;
+            y+=node.offsetTop;
+            node=node.offsetParent;
+        }while(node!=null && node.nodeName.toLowerCase()!="body");
+
+        return {
+            x:x,
+            y:y
+        };
+    },
+    playChess:function(event,node){//落子;event表示事件对象;node表示节点（棋盘）
+        var _this=this;
+        var e=window.event || event;//事件对象
+        var mouseX=e.clientX+document.body.scrollLeft+document.documentElement.scrollLeft;//鼠标坐标相对浏览器可视窗口的x；document.body.scrollLeft+document.documentElement.scrollLeft;滚动条距离
+        var mouseY=e.clientY+document.body.scrollTop+document.documentElement.scrollTop;
+        var nodeOffset=_this.clientOffset(node);//返回node到可视窗口的距离json
+        var mouseNodeX=mouseX-nodeOffset.x;//返回鼠标相对棋盘的坐标x
+        var mouseNodeY=mouseY-nodeOffset.y;
+        //console.log(mouseNodeX,mouseNodeY)
+        //0-19,0
+        //20-59,1
+        //60-99,2
+        //100-139,3
+        var x=Math.round(mouseNodeX/_this.gridWidth);//得到坐标x
+        var y=Math.round(mouseNodeY/_this.gridWidth);
+        if(!_this.arrChess[y][x].bool){
+            return alert("已经落子");
+        }
+        _this.arrChess[y][x].bool=false;
+        //0,0:40*0-15,40*0-15
+        //0,1:40*0-15,40*1-15
+        //1,2:40-15,40*2-15
+        var spanNode=document.createElement("span");//创建span节点，表示棋子
+        spanNode.style.left=_this.gridWidth*x-_this.chessWidth/2+"px";
+        spanNode.style.top=_this.gridWidth*y-_this.chessWidth/2+"px";
+
+        var color="";//表示颜色
+        if(_this.chessBool){//黑子
+            _this.chessBool=false;
+            color="black";
+            _this.arrowNode.style.top="120px";
+        }
+        else{//白子
+            _this.chessBool=true;
+            color="white";
+           _this.arrowNode.style.top="38px";
+        }
+        spanNode.className=color;
+        _this.arrChess[y][x].chessColor=color;
+
+        node.appendChild(spanNode);
+
+        _this.win(x,y,color);
+    },
+    init:function(){
+        var _this=this;
+        _this.ulNode=_this.contentNode.getElementsByTagName("ul")[0];
+        _this.createBoard(20,15,_this.ulNode);//创造棋盘
+
+        _this.contentNode.onclick=function(e){//落子
+            _this.playChess(e,this);
+        };
+    }
+};
+
+oChess.init();
+</script>
+</body>
+</html>
